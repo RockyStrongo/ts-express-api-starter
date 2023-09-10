@@ -40,12 +40,6 @@ const RecordController = {
 
     async createRecord(req: Request, res: Response, next: NextFunction) {
         try {
-            const result = validationResult(req);
-
-            if (!result.isEmpty()) {
-                return res.status(400).json(result);
-            }
-
             const input = req.body
             const [artist, created] = await Artist.findOrCreate(
                 {
@@ -56,7 +50,6 @@ const RecordController = {
             const artistId = artist.get().id
 
             const recordToCreate = { ...input, artistId: artistId }
-            console.log(recordToCreate)
 
             const record = await Record.create(
                 recordToCreate
