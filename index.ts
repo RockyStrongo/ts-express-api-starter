@@ -5,6 +5,7 @@ import errorHandler from './src/middlewares/errorHandler';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import notFound from './src/middlewares/notFound';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -24,6 +25,9 @@ app.use(limiter);
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json({ limit: '50mb' }));
+
+//to do - when in prod, limit domains allowed by cors config
+app.use(cors());
 
 app.use(router);
 app.use(errorHandler);
