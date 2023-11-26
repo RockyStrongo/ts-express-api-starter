@@ -1,10 +1,12 @@
 import express from 'express';
-import RecordController from '../controllers/RecordController'
-import { validateCreateRecord } from '../controllers/RecordController';
+import AuthController from '../controllers/AuthController';
+import PlantController from '../controllers/PlantController';
 
 const router = express.Router();
 
-router.get('/records', RecordController.getRecords);
-router.post('/record', validateCreateRecord, RecordController.createRecord);
+router.post('/register', AuthController.validateRegister, AuthController.register);
+router.post('/login', AuthController.validateLogin, AuthController.login);
+
+router.get('/plants', AuthController.verifyJwt, PlantController.getPlants)
 
 export default router
